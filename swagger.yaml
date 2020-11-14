@@ -1,0 +1,38 @@
+openapi: 3.0.1
+info:
+  title: Coffee カタログ
+  description: 好きなCoffeeを管理できるやつ
+  termsOfService: https://github.com/konoJobChange/coffee
+  version: 1.0.0
+servers:
+  - url: https://localhost:3000/api
+  - url: http://localhost:3000/api
+tags:
+  - name: coffee
+    description: Coffee管理
+paths:
+  /coffee:
+    get:
+      tags:
+        - coffee
+      summary: coffee一覧
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Coffee"
+components:
+  schemas:
+    Coffee:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
