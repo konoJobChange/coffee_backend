@@ -3,12 +3,12 @@ version: "3"
 services:
   swagger-ui:
     image: redocly/redoc
-    ports:
-      - 8081:80
     volumes:
       - ./swagger.yaml:/usr/share/nginx/html/swagger.yaml
     environment:
       SPEC_URL: swagger.yaml
+    ports:
+      - 8081:80
   db:
     image: postgres:latest
     container_name: postgres_host
@@ -23,3 +23,22 @@ services:
       - ./database/initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
+    networks:
+      - default
+  app:
+    image: node:latest
+    environment:
+      - TZ=Asia/Tokyo
+      - DEBUG=app:*
+    ports:
+      - 3000:8080
+    volumes:
+      - ./server:/app
+    working_dir: /app
+    command: npm start
+    networks:
+      - default
+    links:
+      - db
+    depends_on:
+      - db
