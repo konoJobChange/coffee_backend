@@ -1,0 +1,2 @@
+COPY coffees(title,description,coffee_group) FROM '/docker-entrypoint-initdb.d/iced_coffee.csv' WITH CSV HEADER;
+COPY coffees(title,description,coffee_group) FROM '/docker-entrypoint-initdb.d/hot_coffee.csv' WITH CSV HEADER;

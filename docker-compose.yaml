@@ -9,3 +9,17 @@ services:
       - ./swagger.yaml:/usr/share/nginx/html/swagger.yaml
     environment:
       SPEC_URL: swagger.yaml
+  db:
+    image: postgres:latest
+    container_name: postgres_host
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=coffee
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=C
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
