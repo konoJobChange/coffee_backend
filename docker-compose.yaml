@@ -38,7 +38,5 @@ services:
     command: npm start
     networks:
       - default
-    links:
-      - db
     depends_on:
       - db

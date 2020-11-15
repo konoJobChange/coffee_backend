@@ -1,13 +1,9 @@
-'use strict';
-
-const express = require('express');
-const pg = require('pg');
-
+import express from 'express';
+import { Client } from 'pg';
 // Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
+const PORT = process.env.PORT || 8080;
 
-const client = new pg.Client({
+const client = new Client({
     database: 'coffee',
     user: 'root',
     password: 'root',
@@ -25,7 +21,7 @@ app.get('/api/coffee', async (req, res) => {
 
 (async () => {
     await client.connect();
-    app.listen(PORT, HOST, () => {
-        console.log(`Running on http://${HOST}:${PORT}`);
+    app.listen(PORT, () => {
+        console.log(`listen ${PORT} !`);
     });
 })()
